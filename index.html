@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+  <title>Watson Jobs in Pittsburgh</title>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="styles/screen.css">
+  <script src=""></script>
+</head>
+<body>
+  <article>
+    <header>
+      <div class="inner">
+        <div id="logo">
+          <img src="img/watson_logo.png" alt="logo">
+        </div>
+        <div id="header_copy">
+          <h1>We are Watson; we are hiring.</h1>
+          <p>The IBM Watson Group is products and technologies working together using cognitive computing - trying to make computers think like people - to solve hard problems like winning Jeopardy using massive amounts of structured and unstructured data.</p>
+          <p>In beautiful Pittsburgh, Pennsylvania, we're working on Watson Explorer, a web application for data exploration and visualization. We need more people to turn some big ideas into reality, and maybe we need you. Check out our open positions below, then write to let us know why you'd be a great fit for our team and our product.</p>
+          </p>
+        </div>
+      </div>
+    </header>
+    <main id="main"></main>
+    <footer>
+      <div class="inner">
+        <p>&copy; 2014 IBM Watson Jobs</p>
+      </div>
+    </footer>
+  </article>
+  <div role="dialog" aria-hidden="true" tabindex="-1">
+
+    <div class="flip_container">
+      <div class="flipper">
+        <div class="fade_bottom"></div>
+        <div class="front"></div>
+        <div class="back">
+          <p><strong>Send an email to the address below!</strong></p>
+          <p>Be sure to include:</p>
+          <ul>
+            <li>your name</li>
+            <li>the job you are applying for</li>
+            <li>your resumé</li>
+            <li>a link to your portfolio (if applicable)</li>
+          </ul>
+          <p>
+            <a href="mailto:ajgray@us.ibm.com?subject=My Watson Job Application">ajgray@us.ibm.com</a>
+          </p>
+        </div>
+        <button class="close" tabindex="-1">+</button>
+      </div>
+    </div>
+    <button id="flip_contents" tabindex="-1" class="button">Interested?</button>
+  </div>
+  <div class="overlay"></div>
+  <script id="all_job_postings" type="text/x-handlebars-template">
+    <div class="inner">
+      <ul id="job_postings">
+        {{#each objects}}
+          {{#if job_id}}
+            <li class="job_list_item" id="{{job_id}}">
+              <h2 class="job_title">
+                {{job_title}}
+              </h2>
+              <p class="job_description">{{job_description}}</p>
+              <button
+                class="button"
+                aria-selected="false"
+                data-apply-url="{{job_url}}">
+                View Details
+              </button>
+          {{/if}}
+        {{/each}}
+        </li>
+      </ul>
+    </div>
+  </script>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="js/handlebars.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/postings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

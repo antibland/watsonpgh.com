@@ -1,0 +1,486 @@
+@import "compass/css3";
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+*, body, button, input, textarea, select {
+  text-rendering: optimizeLegibility;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote {
+  &:before, &:after {
+    content: '';
+    content: none; } }
+
+q {
+  &:before, &:after {
+    content: '';
+    content: none; } }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+strong {
+  font-weight: bold;
+}
+
+a {
+  color: #70bfe0;
+  &:hover { color: darken(#70bfe0, 8%); }
+}
+
+
+$near_black: #3f3f3f;
+$gray: #606060;
+$light_blue: #70bfe0;
+
+$font_list: "Helvetica Neue", Arial, sans-serif;
+
+*,
+*:before,
+*:after {
+  @include box-sizing(border-box);
+}
+
+// animate with prefixes
+// @include animation(ANIMATIONNAME LENGTH REPEAT INOUT);
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ", "};
+    }
+  }
+  -webkit-animation: $animations;
+  -moz-animation: $animations;
+  -o-animation: $animations;
+  animation: $animations;
+}
+
+// animation keyframes
+// @include keyframes(ANIMATIONNAME) {
+//   0% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+//   50% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+//   100% { ATTRIBUTE: VALUE; ATTRIBUTE: VALUE; }
+// }
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@include keyframes(fadein) {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+%button {
+  @include border-radius(3px);
+  background-color: $light_blue;
+  color: white;
+  cursor: pointer;
+  text-decoration:none;
+  padding: 0.5em 1em;
+  font-family: $font_list;
+  font-size: 0.9em;
+  border: none;
+  outline: none;
+
+  &:hover {
+    background-color: darken($light_blue, 8%);
+    transition: all 0.3s ease;
+  }
+
+  &[aria-selected="true"] {
+    background-color: darken($light_blue, 25%);
+  }
+
+  [role=dialog] & {
+    display: block;
+    width: 8em;
+    text-align: center;
+    margin: 1em auto 0;
+    position: absolute;
+    bottom: 1.6em;
+    left: 50%;
+    margin-left: -4em;
+  }
+}
+
+body {
+  font-family: $font_list;
+  background-color: $near_black;
+  font-size: 16px;
+
+  &.show_modal {
+    overflow: hidden;
+  }
+}
+
+p {
+  line-height: 1.5em;
+}
+
+.job_title {
+  color: $gray;
+
+  [role=dialog] & {
+    color: $light_blue;
+  }
+}
+
+#map {
+  @include transition(0.3s);
+  @include opacity(1);
+  width: 30%;
+  float: left;
+  position: relative;
+  top: -2em;
+}
+
+#logo > img {
+  margin: 0 auto;
+  display: block;
+  max-width: 155px;
+  margin-bottom: 3em;
+}
+
+#header_copy {
+   @include transition(0.3s);
+    padding: 0 5em;
+}
+
+header {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    border-top: 20px solid $near_black;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    left: 50%;
+    bottom: -20px;
+    margin-left: -20px;
+  }
+
+  padding: 2em 0 2.5em;
+
+  h1, p {
+    @include transition(0.3s);
+    text-align: center;
+    //margin-left: 35%;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 200;
+    margin-bottom: 0.75em;
+    color: white;
+  }
+
+  p {
+    font-size: 17px;
+    color: #d5d4d4;
+    margin-bottom: 1em;
+    font-weight: 300;
+  }
+}
+
+footer {
+  padding: 2em 0;
+  background-color: #e8e8e8;
+
+  p {
+    color: #7d7d7d;
+  }
+}
+
+main {
+  @include inline-block;
+  width: 100%;
+  background-color: white;
+}
+
+.inner {
+  max-width: 910px;
+  margin: 0 auto;
+}
+
+#job_postings {
+  padding: 3.5em 0 2em;
+
+  &.show {
+    @include animation(fadein 1.2s);
+  }
+}
+
+.job_description {
+  color: $gray;
+  display: none;
+  margin-bottom: 6em;
+
+  [role=dialog] & {
+    display: block;
+    line-height: 1.4em;
+  }
+}
+
+.job_title {
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+}
+
+.job_list_item {
+  @include transition(0.3s);
+  @include inline-block;
+
+  border: 1px solid rgb(230, 230, 230);
+  text-align: center;
+  padding: 2em;
+
+  position: relative;
+  vertical-align: top;
+  margin-bottom: 2em;
+  width: 48%;
+  &:nth-child(odd) {
+    margin-right: 4%;
+  }
+  dl {
+    font-size: 0.9em;
+    line-height: 1.4em;
+  }
+  dt {
+    color: $gray;
+    font-weight: bold;
+    margin-right: 0.5em;
+    float: left;
+    clear: left;
+  }
+  dd {
+    color: $gray;
+    margin-bottom: 0.5em;
+    margin-left: 2em;
+  }
+}
+
+[role=dialog] {
+  @include transition(0.3s);
+  @include transform(translate3d(-20em, -12em, 0) scale3d(0, 0, 0));
+  position: fixed;
+  background-color: #fff;
+  height: 24em;
+  width: 40em;
+  max-width: 100%;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+  overflow: hidden;
+
+  .flip_container ul {
+    list-style-type: circle;
+    margin: 0 0 1em 1em;
+    line-height: 1.4em;
+  }
+
+  .flip_container {
+    @include perspective(1000);
+
+    &.hover,
+    &.flip {
+      .back {
+        @include rotateY(0deg);
+      }
+
+      .front {
+        @include rotateY(180deg);
+      }
+    }
+
+    .front, .back {
+      @include backface-visibility(hidden);
+      @include transition(0.6s);
+      @include perspective(1000px);
+      @include transform-style(preserve-3d);
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      color: $gray;
+      height: 24em;
+      padding: 2em 2.4em;
+      margin: 0;
+    }
+
+    .back {
+      @include rotateY(-180deg);
+    }
+
+    .front {
+      z-index: 2;
+    }
+
+    .flipper {
+      @include perspective(1000px);
+      @include transform-style(preserve-3d);
+      position: relative;
+
+      .fade_bottom {
+        background-image: linear-gradient(
+                            rgba(white, 0) 0%,
+                            rgba(white, 0.8) 20%,
+                            rgba(white, 0.95) 40%);
+        position: absolute;
+        top: 19em;
+        height: 5em;
+        width: 100%;
+        z-index: 100;
+      }
+    }
+  }
+
+  .close {
+    @include transform(rotate(-45deg));
+    color: $near_black;
+    background-color: transparent;;
+    position: absolute;
+    top: 0.05em;
+    right: 0.05em;
+    font-weight: bold;
+    display: inline-block;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    width: 1.5em;
+    height: 1.5em;
+    font-size: 2em;
+    margin: 0 auto;
+    z-index: 3;
+  }
+
+  .show_modal & {
+    @include transform(translate3d(-20em, -12em, 0) scale3d(1, 1, 1));
+  }
+}
+
+.button {
+  @extend %button;
+}
+
+.overlay {
+  @include transition(0.3s);
+  @include opacity(0);
+  visibility: hidden;
+  background-color: $near_black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .show_modal & {
+    @include opacity(0.5);
+    visibility: visible;
+  }
+}
+
+@media (max-width: 940px) {
+  .inner {
+    margin: 0 1em;
+  }
+}
+
+@media (max-width: 630px) {
+  .job_list_item {
+    dt, dd {
+      display: block;
+      float: none;
+    }
+    dd {
+      margin-left: 0;
+    }
+   }
+   #header_copy {
+      padding: 0 2.2em;
+    }
+}
+
+@media (max-width: 500px) {
+  .inner {
+    padding: 0em;
+  }
+
+   #header_copy {
+      padding: 0 1em;
+    }
+
+  .job_list_item {
+    width: 100%;
+  }
+
+  #map {
+    @include opacity(0);
+    width: 0;
+  }
+
+  header {
+    h1, p {
+      margin-left: 0;
+    }
+  }
+
+  [role=dialog] {
+    top: 0;
+    left: 0;
+
+    .show_modal & {
+      @include translate3d(0, 0, 0);
+      width: 100%;
+      margin: 0;
+      .flip_container {
+        .front {
+          padding-top: 2em;
+        }
+      }
+    }
+  }
+}
